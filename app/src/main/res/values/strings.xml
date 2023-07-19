@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FactorialCoroutines</string>
+    <string name="write_number">Введите число, для расчёта его факториала</string>
+    <string name="calculate">Расчитать</string>
 </resources>
