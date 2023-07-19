@@ -1,7 +1,7 @@
 package ru.paramonov.factorialcoroutines
 
-class State(
-    val isError: Boolean = false,
-    val isInProgress: Boolean = false,
-    val factorial: String = "GJl "
-)
+sealed class State {
+    object Error : State()
+    object Progress : State()
+    class Result(val factorial: String) : State()
+}
