@@ -28,26 +28,24 @@ class MainActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
 
-        viewModel.error.observe(this) { error ->
-            if(error) {
+        viewModel.viewState.observe(this) { viewState ->
+            if (viewState.isError) {
                 Toast.makeText(
                     this,
-                    "Вы не ввели никое число!!!",
+                    "Вы не ввели никакое число!!!",
                     Toast.LENGTH_SHORT
                 ).show()
             }
-        }
-        viewModel.progress.observe(this) { progress ->
-            if(progress) {
+
+            if (viewState.isInProgress) {
                 binding.progressCircular.visibility = View.VISIBLE
                 binding.buttonCalculate.isEnabled = false
             } else {
                 binding.progressCircular.visibility = View.GONE
                 binding.buttonCalculate.isEnabled = true
             }
-        }
-        viewModel.factorial.observe(this) { result ->
-            binding.textViewResult.text = result
+
+            binding.textViewResult.text = viewState.factorial
         }
     }
 }

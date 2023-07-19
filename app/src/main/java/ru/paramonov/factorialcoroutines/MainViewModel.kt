@@ -9,29 +9,21 @@ import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
 
-    private val _error = MutableLiveData<Boolean>()
-    val error: LiveData<Boolean> = _error
-
-    private val _progress = MutableLiveData<Boolean>()
-    val progress: LiveData<Boolean> = _progress
-
-    private val _factorial = MutableLiveData<String>()
-    val factorial: LiveData<String> = _factorial
+    private val _viewState = MutableLiveData<State>()
+    val viewState: LiveData<State> = _viewState
 
     fun calculate(value: String?) {
 
-        _progress.value = true
-        if (value.isNullOrBlank()) {
-            _progress.value = false
-            _error.value = true
+        _viewState.value = State(isInProgress = true)
+        if(value.isNullOrBlank()) {
+            _viewState.value = State(isError = true)
             return
         }
 
         viewModelScope.launch {
             val number = value.toLong()
             delay(1000)
-            _progress.value = false
-            _factorial.value = number.toString()
+            _viewState.value = State(factorial = number.toString())
         }
     }
 }
